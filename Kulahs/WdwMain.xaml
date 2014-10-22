@@ -1,0 +1,100 @@
+﻿<Window x:Class="Kulahs.WdwMain"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Kulahs" Height="280" Width="140" Topmost="True" WindowStyle="None" AllowsTransparency="True" Background="{x:Null}" ResizeMode="NoResize" Icon="/Kulahs;component/Resources/kulahsRed.ico" KeyDown="WdwMainKeyDown">
+    <Window.Resources>
+        <ImageSource x:Key="swatch1">/Kulahs;component/Resources/ColorSwatchSquare1.png</ImageSource>
+        <ImageSource x:Key="swatch2">/Kulahs;component/Resources/ColorSwatchSquare2.png</ImageSource>
+        <ImageSource x:Key="swatch3">/Kulahs;component/Resources/ColorSwatchCircle.png</ImageSource>
+        <Storyboard x:Key="HideToolBar">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="ToolBar" Storyboard.TargetProperty="(UIElement.Opacity)">
+                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="0">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <QuadraticEase EasingMode="EaseInOut"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Key="ShowToolBar">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="ToolBar" Storyboard.TargetProperty="(UIElement.Opacity)">
+                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="1">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <QuadraticEase EasingMode="EaseInOut"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+    </Window.Resources>
+    <!--You can uncomment below triggers to make the toolbar toggle on mouseover-->
+    <!--<Window.Triggers>
+        <EventTrigger RoutedEvent="Mouse.MouseLeave" SourceName="ToolBar">
+            <BeginStoryboard Storyboard="{StaticResource HideToolBar}"/>
+        </EventTrigger>
+        <EventTrigger RoutedEvent="Mouse.MouseEnter" SourceName="BdrColor">
+            <BeginStoryboard Storyboard="{StaticResource ShowToolBar}"/>
+        </EventTrigger>
+    </Window.Triggers>-->
+    <Grid Margin="0,0,0,0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="16" />
+            <RowDefinition Height="162" />
+        </Grid.RowDefinitions>
+        <Border BorderThickness="0" Height="Auto" HorizontalAlignment="Stretch" Name="BdrColor" VerticalAlignment="Stretch" Width="Auto" CornerRadius="6,6,0,0" MouseDown="BdrColorMouseDown" MouseWheel="BdrColorMouseWheel" Grid.RowSpan="2">
+            <TextBlock Height="Auto" Width="Auto" Name="TkBadColor" Text="Error" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White" Visibility="Hidden" />
+        </Border>
+        <ScrollViewer Name="SvPalette" Grid.Row="1" VerticalScrollBarVisibility="Disabled" MouseWheel="ScrollViewerMouseWheel" HorizontalScrollBarVisibility="Hidden">
+            <StackPanel Name="SpPalette" Height="16" Orientation="Horizontal" MouseWheel="ScrollViewerMouseWheel" />
+        </ScrollViewer>
+        <Grid Name="ToolBar" Grid.Row="2" VerticalAlignment="Bottom">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <TextBox Height="Auto" HorizontalAlignment="Stretch" Name="TbHtml" VerticalAlignment="Stretch" Background="#FF232323" Text="#FF000000" TextChanged="TbHtmlTextChanged" BorderBrush="{x:Null}" BorderThickness="0" FontSize="14" KeyDown="TbHtmlKeyDown" Foreground="#FFE2925B" />
+            <Border Grid.Column="1" Width="12" Background="White">
+                <Rectangle Fill="Black" Height="12" VerticalAlignment="Bottom"/>
+            </Border>
+            <Border Grid.Column="2">
+                <Image Name="ImgPalette" Width="22" Height="22" MouseDown="ImgPaletteMouseDown" Stretch="UniformToFill" Source="{StaticResource swatch1}"/>
+            </Border>
+            <Grid Grid.Column="3">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Border Name="BdrColorLeftTop" />
+                <Border Name="BdrColorTop" Grid.Column="1"  />
+                <Border Name="BdrColorRightTop" Grid.Column="2" />
+                <Border Name="BdrColorLeft" Grid.Row="1" />
+                <Border Name="BdrColorCenter" Grid.Column="1" Grid.Row="1" />
+                <Border Name="BdrColorRight" Grid.Column="2" Grid.Row="1" />
+                <Border Name="BdrColorLeftBottom" Grid.Row="2" />
+                <Border Name="BdrColorBottom" Grid.Column="1" Grid.Row="2" />
+                <Border Name="BdrColorRightBottom" Grid.Column="2" Grid.Row="2" />
+            </Grid>
+            <Viewbox Name="VbEyedrop" RenderTransformOrigin="11,11" Width="22" Height="22" HorizontalAlignment="Right" Stretch="Fill">
+                <Viewbox.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform ScaleX="2" ScaleY="2"/>
+                    </TransformGroup>
+                </Viewbox.RenderTransform>
+                <Image Name="ImgScreenShot" />
+            </Viewbox>
+            <Image Grid.Column="3" Name="ImgEyedrop" Width="22" Height="22" HorizontalAlignment="Right" MouseDown="ImgEyedropMouseDown" Stretch="UniformToFill" Source="/Kulahs;component/Resources/eyedropper23.png" />
+            <Image Grid.Row="1" Grid.ColumnSpan="4" Name="ImgPaletteZoom" Stretch="UniformToFill" Source="{StaticResource swatch1}" Width="140" Height="140" Visibility="Hidden" />
+        </Grid>
+    </Grid>
+</Window>
