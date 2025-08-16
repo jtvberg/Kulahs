@@ -41,8 +41,5 @@ You can see how a color with a < 100% alpha will look by putting it in the swatc
 If you want to see the entire swatch collection over something else or you don't want the main swatch to influence the combined color you can use the shift click to remove it.
 Combined colors based on alpha differences are different colors! So if you set a color @ FF then reduce the alpha you can sample that color again as a combination of whatever is underneath.
 
-Bugs:
-Report anything you find to joel.vandenberg@bestbuy.com
-
 Caveats:
 I haven't tested this on anything but Windows 7.
